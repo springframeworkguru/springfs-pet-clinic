@@ -3,6 +3,8 @@ package guru.springframework.springfspetclinic.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "pets")
@@ -18,6 +20,9 @@ public class Pet extends NamedEntity {
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private Owner owner;
+
+    @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Visit> visits = new ArrayList<>();
 
     public LocalDate getBirthDate() {
         return birthDate;
@@ -41,5 +46,18 @@ public class Pet extends NamedEntity {
 
     public void setOwner(Owner owner) {
         this.owner = owner;
+    }
+
+    public List<Visit> getVisits() {
+        return visits;
+    }
+
+    public void setVisits(List<Visit> visits) {
+        this.visits = visits;
+    }
+
+    public void addVisit(Visit visit) {
+        visits.add(visit);
+        visit.setPet(this);
     }
 }
