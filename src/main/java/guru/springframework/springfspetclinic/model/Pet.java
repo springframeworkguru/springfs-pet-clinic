@@ -15,6 +15,10 @@ public class Pet extends NamedEntity {
     @JoinColumn(name = "type_id")
     private PetType type;
 
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private Owner owner;
+
     public LocalDate getBirthDate() {
         return birthDate;
     }
@@ -29,5 +33,13 @@ public class Pet extends NamedEntity {
 
     public void setType(PetType type) {
         this.type = type;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
     }
 }
