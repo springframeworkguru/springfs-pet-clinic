@@ -4,13 +4,21 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
 import java.time.LocalDate;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "visits")
+@Getter
+@Setter
+@SuperBuilder
 public class Visit extends BaseEntity {
 
     @Column(name = "visit_date", columnDefinition = "DATE")
-    private LocalDate date;
+    @Builder.Default
+    private LocalDate date = LocalDate.now();
 
     @NotEmpty
     @Column(name = "description")
@@ -24,27 +32,4 @@ public class Visit extends BaseEntity {
         this.date = LocalDate.now();
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Pet getPet() {
-        return pet;
-    }
-
-    public void setPet(Pet pet) {
-        this.pet = pet;
-    }
 }
